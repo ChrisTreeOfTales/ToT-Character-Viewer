@@ -42,6 +42,9 @@ export function SkillsDisplay({ characterId, skills, abilityScores, proficiencyB
   const [newSkillName, setNewSkillName] = useState('');
   const [newSkillAttribute, setNewSkillAttribute] = useState('strength');
 
+  // Debug: Log skills to console
+  console.log('SkillsDisplay received skills:', skills);
+
   /**
    * Calculates the ability modifier from an ability score
    * Formula: (score - 10) / 2, rounded down
@@ -170,6 +173,50 @@ export function SkillsDisplay({ characterId, skills, abilityScores, proficiencyB
     }
   };
 
+  /**
+   * Adds all D&D 5e skills to this character
+   * Used for characters created before the skills system was implemented
+   */
+  const addAllDndSkills = async () => {
+    try {
+      const db = await getDatabase();
+
+      const DEFAULT_DND_SKILLS = [
+        { name: 'Acrobatics', attribute: 'dexterity' },
+        { name: 'Animal Handling', attribute: 'wisdom' },
+        { name: 'Arcana', attribute: 'intelligence' },
+        { name: 'Athletics', attribute: 'strength' },
+        { name: 'Deception', attribute: 'charisma' },
+        { name: 'History', attribute: 'intelligence' },
+        { name: 'Insight', attribute: 'wisdom' },
+        { name: 'Intimidation', attribute: 'charisma' },
+        { name: 'Investigation', attribute: 'intelligence' },
+        { name: 'Medicine', attribute: 'wisdom' },
+        { name: 'Nature', attribute: 'intelligence' },
+        { name: 'Perception', attribute: 'wisdom' },
+        { name: 'Performance', attribute: 'charisma' },
+        { name: 'Persuasion', attribute: 'charisma' },
+        { name: 'Religion', attribute: 'intelligence' },
+        { name: 'Sleight of Hand', attribute: 'dexterity' },
+        { name: 'Stealth', attribute: 'dexterity' },
+        { name: 'Survival', attribute: 'wisdom' },
+      ];
+
+      for (const skill of DEFAULT_DND_SKILLS) {
+        await db.execute(
+          `INSERT INTO skills (id, character_id, name, attribute, proficient, expertise, bonus, is_custom)
+           VALUES (?, ?, ?, ?, 0, 0, 0, 0)`,
+          [crypto.randomUUID(), characterId, skill.name, skill.attribute]
+        );
+      }
+
+      onSkillsUpdate();
+    } catch (error) {
+      console.error('Failed to add D&D skills:', error);
+      alert('Failed to add D&D skills');
+    }
+  };
+
   return (
     <div className="bg-slate-800 rounded-lg p-6">
       <div className="flex items-center justify-between mb-4">
@@ -182,6 +229,21 @@ export function SkillsDisplay({ characterId, skills, abilityScores, proficiencyB
           <Plus className="w-4 h-4" />
         </button>
       </div>
+
+      {/* Show helper button if character has no skills */}
+      {skills.length === 0 && (
+        <div className="mb-4 p-4 bg-blue-900/20 border border-blue-700 rounded-lg">
+          <p className="text-sm text-slate-300 mb-3">
+            This character has no skills. Add the standard D&D 5e skills to get started.
+          </p>
+          <button
+            onClick={addAllDndSkills}
+            className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors font-medium"
+          >
+            Add D&D 5e Skills (18 skills)
+          </button>
+        </div>
+      )}
 
       {/* Add Custom Skill Form */}
       {isAddingSkill && (
