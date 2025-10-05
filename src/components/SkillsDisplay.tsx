@@ -217,8 +217,96 @@ export function SkillsDisplay({ characterId, skills, abilityScores, proficiencyB
     }
   };
 
+  /**
+   * Helper to format modifier with +/- sign for display
+   */
+  const formatModifier = (mod: number): string => {
+    return mod >= 0 ? `+${mod}` : `${mod}`;
+  };
+
   return (
     <div className="bg-slate-800 rounded-lg p-6">
+      {/* Ability Scores and Saving Throws */}
+      <div className="grid grid-cols-2 gap-4 mb-6">
+        {/* Ability Scores - Left Half */}
+        <div>
+          <h2 className="text-xl font-bold mb-4">Attributes</h2>
+          <div className="p-4 bg-slate-700 rounded-lg">
+            <div className="flex items-center justify-between">
+              <div className="text-center flex-1">
+                <div className="text-xs font-semibold text-slate-400 mb-1">STR</div>
+                <div className="text-xl font-bold">{formatModifier(getModifier(abilityScores.strength))}</div>
+                <div className="text-xs text-slate-500">{abilityScores.strength}</div>
+              </div>
+              <div className="text-center flex-1">
+                <div className="text-xs font-semibold text-slate-400 mb-1">DEX</div>
+                <div className="text-xl font-bold">{formatModifier(getModifier(abilityScores.dexterity))}</div>
+                <div className="text-xs text-slate-500">{abilityScores.dexterity}</div>
+              </div>
+              <div className="text-center flex-1">
+                <div className="text-xs font-semibold text-slate-400 mb-1">CON</div>
+                <div className="text-xl font-bold">{formatModifier(getModifier(abilityScores.constitution))}</div>
+                <div className="text-xs text-slate-500">{abilityScores.constitution}</div>
+              </div>
+              <div className="text-center flex-1">
+                <div className="text-xs font-semibold text-slate-400 mb-1">INT</div>
+                <div className="text-xl font-bold">{formatModifier(getModifier(abilityScores.intelligence))}</div>
+                <div className="text-xs text-slate-500">{abilityScores.intelligence}</div>
+              </div>
+              <div className="text-center flex-1">
+                <div className="text-xs font-semibold text-slate-400 mb-1">WIS</div>
+                <div className="text-xl font-bold">{formatModifier(getModifier(abilityScores.wisdom))}</div>
+                <div className="text-xs text-slate-500">{abilityScores.wisdom}</div>
+              </div>
+              <div className="text-center flex-1">
+                <div className="text-xs font-semibold text-slate-400 mb-1">CHA</div>
+                <div className="text-xl font-bold">{formatModifier(getModifier(abilityScores.charisma))}</div>
+                <div className="text-xs text-slate-500">{abilityScores.charisma}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Saving Throws - Right Half */}
+        <div>
+          <h2 className="text-xl font-bold mb-4">Saving Throws</h2>
+          <div className="p-4 bg-slate-700 rounded-lg">
+            <div className="flex items-center justify-between">
+              <div className="text-center flex-1">
+                <div className="text-xs font-semibold text-slate-400 mb-1">STR</div>
+                <div className="text-xl font-bold">{formatModifier(getModifier(abilityScores.strength))}</div>
+                <div className="text-xs text-slate-500">Save</div>
+              </div>
+              <div className="text-center flex-1">
+                <div className="text-xs font-semibold text-slate-400 mb-1">DEX</div>
+                <div className="text-xl font-bold">{formatModifier(getModifier(abilityScores.dexterity))}</div>
+                <div className="text-xs text-slate-500">Save</div>
+              </div>
+              <div className="text-center flex-1">
+                <div className="text-xs font-semibold text-slate-400 mb-1">CON</div>
+                <div className="text-xl font-bold">{formatModifier(getModifier(abilityScores.constitution))}</div>
+                <div className="text-xs text-slate-500">Save</div>
+              </div>
+              <div className="text-center flex-1">
+                <div className="text-xs font-semibold text-slate-400 mb-1">INT</div>
+                <div className="text-xl font-bold">{formatModifier(getModifier(abilityScores.intelligence))}</div>
+                <div className="text-xs text-slate-500">Save</div>
+              </div>
+              <div className="text-center flex-1">
+                <div className="text-xs font-semibold text-slate-400 mb-1">WIS</div>
+                <div className="text-xl font-bold">{formatModifier(getModifier(abilityScores.wisdom))}</div>
+                <div className="text-xs text-slate-500">Save</div>
+              </div>
+              <div className="text-center flex-1">
+                <div className="text-xs font-semibold text-slate-400 mb-1">CHA</div>
+                <div className="text-xl font-bold">{formatModifier(getModifier(abilityScores.charisma))}</div>
+                <div className="text-xs text-slate-500">Save</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold">Skills</h2>
         <button

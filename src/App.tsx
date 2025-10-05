@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { initDatabase } from './lib/database';
 import { CharacterListSimple } from './components/CharacterListSimple';
 import { SkillsDisplay } from './components/SkillsDisplay';
-import { Trash2, Shield, Zap, Footprints, Award, Swords, Sparkles, Star, Backpack } from 'lucide-react';
+import { Trash2, Shield, Zap, Footprints, Award, Swords, Sparkles, Star, Backpack, Menu, Scroll } from 'lucide-react';
 
 interface FullCharacter {
   id: string;
@@ -37,7 +37,7 @@ interface Skill {
 }
 
 // Type for the active tab in the character sheet
-type CharacterTab = 'skills' | 'actions' | 'spells' | 'features' | 'inventory';
+type CharacterTab = 'skills' | 'actions' | 'spells' | 'features' | 'traits' | 'inventory';
 
 function App() {
   const [isInitializing, setIsInitializing] = useState(true);
@@ -47,6 +47,7 @@ function App() {
   const [activeTab, setActiveTab] = useState<CharacterTab>('skills');
   const [hpChangeAmount, setHpChangeAmount] = useState<string>('');
   const [tempHpChangeAmount, setTempHpChangeAmount] = useState<string>('');
+  const [showSidebar, setShowSidebar] = useState(false);
 
   const updateHP = async (newHP: number) => {
     if (!selectedCharacter) return;
@@ -192,10 +193,12 @@ function App() {
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100">
       <div className="flex h-screen">
-        {/* Sidebar - Character List */}
-        <aside className="w-80 border-r border-slate-700 bg-slate-800 overflow-y-auto">
-          <CharacterListSimple onSelectCharacter={handleSelectCharacter} selectedId={selectedCharacter?.id} />
-        </aside>
+        {/* Sidebar - Character List (toggleable when character is selected) */}
+        {(!selectedCharacter || showSidebar) && (
+          <aside className="w-80 border-r border-slate-700 bg-slate-800 overflow-y-auto">
+            <CharacterListSimple onSelectCharacter={handleSelectCharacter} selectedId={selectedCharacter?.id} />
+          </aside>
+        )}
 
         {/* Main Content - Character Sheet */}
         <main className="flex-1 overflow-y-auto">
@@ -204,93 +207,57 @@ function App() {
               {/* Header */}
               <div className="mb-4 pb-4 border-b border-slate-700">
                 <div className="flex items-start justify-between">
-                  <div>
-                    <h1 className="text-4xl font-bold mb-2">{selectedCharacter.name}</h1>
-                    <div className="flex gap-4 text-slate-400">
-                      <span>Level {selectedCharacter.level} {selectedCharacter.class}</span>
-                      <span>•</span>
-                      <span>{selectedCharacter.race}</span>
-                      <span>•</span>
-                      <span>{selectedCharacter.background}</span>
+                  <div className="flex items-center gap-4">
+                    <button
+                      onClick={() => setShowSidebar(!showSidebar)}
+                      className="p-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors"
+                      title={showSidebar ? "Hide Character List" : "Show Character List"}
+                    >
+                      <Menu className="w-5 h-5" />
+                    </button>
+                    <div>
+                      <h1 className="text-4xl font-bold mb-2">{selectedCharacter.name}</h1>
+                      <div className="flex gap-4 text-slate-400">
+                        <span>Level {selectedCharacter.level} {selectedCharacter.class}</span>
+                        <span>•</span>
+                        <span>{selectedCharacter.race}</span>
+                        <span>•</span>
+                        <span>{selectedCharacter.background}</span>
+                      </div>
                     </div>
                   </div>
-                  <button
-                    onClick={deleteCharacter}
-                    className="p-2 bg-red-600 hover:bg-red-700 rounded-lg transition-colors"
-                    title="Delete Character"
-                  >
-                    <Trash2 className="w-5 h-5" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Attributes - Half Width */}
-              <div className="grid grid-cols-2 gap-3 mb-3">
-                <div className="bg-slate-800 border border-slate-700 rounded-lg p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="text-center flex-1">
-                      <div className="text-xs font-semibold text-slate-400 mb-1">STR</div>
-                      <div className="text-xl font-bold">{getModifier(selectedCharacter.strength)}</div>
-                      <div className="text-xs text-slate-500">{selectedCharacter.strength}</div>
-                    </div>
-                    <div className="text-center flex-1">
-                      <div className="text-xs font-semibold text-slate-400 mb-1">DEX</div>
-                      <div className="text-xl font-bold">{getModifier(selectedCharacter.dexterity)}</div>
-                      <div className="text-xs text-slate-500">{selectedCharacter.dexterity}</div>
-                    </div>
-                    <div className="text-center flex-1">
-                      <div className="text-xs font-semibold text-slate-400 mb-1">CON</div>
-                      <div className="text-xl font-bold">{getModifier(selectedCharacter.constitution)}</div>
-                      <div className="text-xs text-slate-500">{selectedCharacter.constitution}</div>
-                    </div>
-                    <div className="text-center flex-1">
-                      <div className="text-xs font-semibold text-slate-400 mb-1">INT</div>
-                      <div className="text-xl font-bold">{getModifier(selectedCharacter.intelligence)}</div>
-                      <div className="text-xs text-slate-500">{selectedCharacter.intelligence}</div>
-                    </div>
-                    <div className="text-center flex-1">
-                      <div className="text-xs font-semibold text-slate-400 mb-1">WIS</div>
-                      <div className="text-xl font-bold">{getModifier(selectedCharacter.wisdom)}</div>
-                      <div className="text-xs text-slate-500">{selectedCharacter.wisdom}</div>
-                    </div>
-                    <div className="text-center flex-1">
-                      <div className="text-xs font-semibold text-slate-400 mb-1">CHA</div>
-                      <div className="text-xl font-bold">{getModifier(selectedCharacter.charisma)}</div>
-                      <div className="text-xs text-slate-500">{selectedCharacter.charisma}</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Core Stats - Half Width */}
-                <div className="bg-slate-800 border border-slate-700 rounded-lg p-4 flex items-center">
-                  <div className="grid grid-cols-4 gap-3 w-full">
-                    <div className="text-center">
-                      <div className="flex items-center justify-center gap-1 text-sm text-slate-400 mb-1">
-                        <Shield className="w-4 h-4" />
+                  <div className="flex items-stretch gap-2">
+                    {/* Core Stats */}
+                    <div className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 flex flex-col items-center justify-center w-20">
+                      <div className="flex items-center gap-1 text-xs text-slate-400 mb-1">
+                        <Shield className="w-3 h-3" />
                         <span>AC</span>
                       </div>
-                      <div className="text-2xl font-bold">{selectedCharacter.armor_class}</div>
+                      <div className="text-lg font-bold">{selectedCharacter.armor_class}</div>
                     </div>
-                    <div className="text-center">
-                      <div className="flex items-center justify-center gap-1 text-sm text-slate-400 mb-1">
-                        <Zap className="w-4 h-4" />
+                    <div className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 flex flex-col items-center justify-center w-20">
+                      <div className="flex items-center gap-1 text-xs text-slate-400 mb-1">
+                        <Zap className="w-3 h-3" />
                         <span>Init</span>
                       </div>
-                      <div className="text-2xl font-bold">{getModifier(selectedCharacter.dexterity)}</div>
+                      <div className="text-lg font-bold">{getModifier(selectedCharacter.dexterity)}</div>
                     </div>
-                    <div className="text-center">
-                      <div className="flex items-center justify-center gap-1 text-sm text-slate-400 mb-1">
-                        <Footprints className="w-4 h-4" />
+                    <div className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 flex flex-col items-center justify-center w-20">
+                      <div className="flex items-center gap-1 text-xs text-slate-400 mb-1">
+                        <Footprints className="w-3 h-3" />
                         <span>Speed</span>
                       </div>
-                      <div className="text-2xl font-bold">{selectedCharacter.speed}</div>
+                      <div className="text-lg font-bold flex items-baseline gap-1">
+                        {selectedCharacter.speed}
+                        <span className="text-xs text-slate-500">ft</span>
+                      </div>
                     </div>
-                    <div className="text-center">
-                      <div className="flex items-center justify-center gap-1 text-sm text-slate-400 mb-1">
-                        <Award className="w-4 h-4" />
+                    <div className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 flex flex-col items-center justify-center w-20">
+                      <div className="flex items-center gap-1 text-xs text-slate-400 mb-1">
+                        <Award className="w-3 h-3" />
                         <span>Prof</span>
                       </div>
-                      <div className="text-2xl font-bold">+{selectedCharacter.proficiency_bonus}</div>
+                      <div className="text-lg font-bold">+{selectedCharacter.proficiency_bonus}</div>
                     </div>
                   </div>
                 </div>
@@ -446,6 +413,17 @@ function App() {
                   Features
                 </button>
                 <button
+                  onClick={() => setActiveTab('traits')}
+                  className={`flex items-center gap-2 px-4 py-2 font-medium transition-colors ${
+                    activeTab === 'traits'
+                      ? 'text-blue-400 border-b-2 border-blue-400'
+                      : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  <Scroll className="w-4 h-4" />
+                  Traits
+                </button>
+                <button
                   onClick={() => setActiveTab('inventory')}
                   className={`flex items-center gap-2 px-4 py-2 font-medium transition-colors ${
                     activeTab === 'inventory'
@@ -496,7 +474,15 @@ function App() {
                 <div className="bg-slate-800 rounded-lg p-6 text-center">
                   <Star className="w-12 h-12 mx-auto mb-3 text-slate-600" />
                   <p className="text-slate-400">Features coming soon...</p>
-                  <p className="text-sm text-slate-500 mt-2">Class features, racial traits, and special abilities</p>
+                  <p className="text-sm text-slate-500 mt-2">Class features and special abilities</p>
+                </div>
+              )}
+
+              {activeTab === 'traits' && (
+                <div className="bg-slate-800 rounded-lg p-6 text-center">
+                  <Scroll className="w-12 h-12 mx-auto mb-3 text-slate-600" />
+                  <p className="text-slate-400">Traits coming soon...</p>
+                  <p className="text-sm text-slate-500 mt-2">Racial traits, personality traits, ideals, bonds, and flaws</p>
                 </div>
               )}
 
