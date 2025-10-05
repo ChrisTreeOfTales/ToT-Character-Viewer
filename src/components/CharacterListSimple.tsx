@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Plus, X, User } from 'lucide-react';
-import { getDatabase } from '../lib/database';
+import { getDatabase, addDefaultSkills } from '../lib/database';
 
 interface SimpleCharacter {
   id: string;
@@ -86,6 +86,10 @@ export function CharacterListSimple({ onSelectCharacter, selectedId }: Character
       );
 
       console.log('Insert result:', result);
+
+      // Add default D&D 5e skills to the new character
+      await addDefaultSkills(id);
+
       alert('Character created successfully!');
 
       // Reload characters and close modal

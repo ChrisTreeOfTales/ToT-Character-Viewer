@@ -141,3 +141,45 @@ export async function getDatabase(): Promise<Database> {
   }
   return db;
 }
+
+/**
+ * Standard D&D 5e skills with their associated ability scores
+ * These will be added to every new character automatically
+ */
+const DEFAULT_DND_SKILLS = [
+  { name: 'Acrobatics', attribute: 'dexterity' },
+  { name: 'Animal Handling', attribute: 'wisdom' },
+  { name: 'Arcana', attribute: 'intelligence' },
+  { name: 'Athletics', attribute: 'strength' },
+  { name: 'Deception', attribute: 'charisma' },
+  { name: 'History', attribute: 'intelligence' },
+  { name: 'Insight', attribute: 'wisdom' },
+  { name: 'Intimidation', attribute: 'charisma' },
+  { name: 'Investigation', attribute: 'intelligence' },
+  { name: 'Medicine', attribute: 'wisdom' },
+  { name: 'Nature', attribute: 'intelligence' },
+  { name: 'Perception', attribute: 'wisdom' },
+  { name: 'Performance', attribute: 'charisma' },
+  { name: 'Persuasion', attribute: 'charisma' },
+  { name: 'Religion', attribute: 'intelligence' },
+  { name: 'Sleight of Hand', attribute: 'dexterity' },
+  { name: 'Stealth', attribute: 'dexterity' },
+  { name: 'Survival', attribute: 'wisdom' },
+];
+
+/**
+ * Adds all standard D&D 5e skills to a newly created character
+ * Each skill starts with no proficiency or expertise
+ * @param characterId - The UUID of the character to add skills to
+ */
+export async function addDefaultSkills(characterId: string): Promise<void> {
+  const database = await getDatabase();
+
+  for (const skill of DEFAULT_DND_SKILLS) {
+    await database.execute(
+      `INSERT INTO skills (id, character_id, name, attribute, proficient, expertise, bonus, is_custom)
+       VALUES (?, ?, ?, ?, 0, 0, 0, 0)`,
+      [crypto.randomUUID(), characterId, skill.name, skill.attribute]
+    );
+  }
+}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { initDatabase } from './lib/database';
 import { CharacterListSimple } from './components/CharacterListSimple';
+import { SkillsDisplay } from './components/SkillsDisplay';
 import { Trash2 } from 'lucide-react';
 
 interface FullCharacter {
@@ -23,10 +24,22 @@ interface FullCharacter {
   speed: number;
 }
 
+interface Skill {
+  id: string;
+  character_id: string;
+  name: string;
+  attribute: string;
+  proficient: number;
+  expertise: number;
+  bonus: number;
+  is_custom: number;
+}
+
 function App() {
   const [isInitializing, setIsInitializing] = useState(true);
   const [initError, setInitError] = useState<string | null>(null);
   const [selectedCharacter, setSelectedCharacter] = useState<FullCharacter | null>(null);
+  const [characterSkills, setCharacterSkills] = useState<Skill[]>([]);
 
   const updateHP = async (newHP: number) => {
     if (!selectedCharacter) return;
@@ -57,11 +70,48 @@ function App() {
       await db.execute('DELETE FROM characters WHERE id = ?', [selectedCharacter.id]);
 
       setSelectedCharacter(null);
+      setCharacterSkills([]);
       // Reload the page to refresh the character list
       window.location.reload();
     } catch (error) {
       console.error('Failed to delete character:', error);
       alert('Failed to delete character');
+    }
+  };
+
+  /**
+   * Loads skills for the selected character from the database
+   * Called when a character is selected or when skills are updated
+   */
+  const loadCharacterSkills = async (characterId: string) => {
+    try {
+      const db = await initDatabase();
+      const skills = await db.select<Skill[]>(
+        'SELECT * FROM skills WHERE character_id = ? ORDER BY name ASC',
+        [characterId]
+      );
+      setCharacterSkills(skills);
+    } catch (error) {
+      console.error('Failed to load skills:', error);
+      setCharacterSkills([]);
+    }
+  };
+
+  /**
+   * Handles character selection and loads associated skills
+   */
+  const handleSelectCharacter = async (character: FullCharacter) => {
+    setSelectedCharacter(character);
+    await loadCharacterSkills(character.id);
+  };
+
+  /**
+   * Reloads the current character's skills
+   * Called when skills are toggled or new skills are added
+   */
+  const handleSkillsUpdate = async () => {
+    if (selectedCharacter) {
+      await loadCharacterSkills(selectedCharacter.id);
     }
   };
 
@@ -119,7 +169,7 @@ function App() {
       <div className="flex h-screen">
         {/* Sidebar - Character List */}
         <aside className="w-80 border-r border-slate-700 bg-slate-800 overflow-y-auto">
-          <CharacterListSimple onSelectCharacter={setSelectedCharacter} selectedId={selectedCharacter?.id} />
+          <CharacterListSimple onSelectCharacter={handleSelectCharacter} selectedId={selectedCharacter?.id} />
         </aside>
 
         {/* Main Content - Character Sheet */}
@@ -240,6 +290,22 @@ function App() {
                   <div className="text-sm text-slate-500">{selectedCharacter.charisma}</div>
                 </div>
               </div>
+
+              {/* Skills Section */}
+              <SkillsDisplay
+                characterId={selectedCharacter.id}
+                skills={characterSkills}
+                abilityScores={{
+                  strength: selectedCharacter.strength,
+                  dexterity: selectedCharacter.dexterity,
+                  constitution: selectedCharacter.constitution,
+                  intelligence: selectedCharacter.intelligence,
+                  wisdom: selectedCharacter.wisdom,
+                  charisma: selectedCharacter.charisma,
+                }}
+                proficiencyBonus={selectedCharacter.proficiency_bonus}
+                onSkillsUpdate={handleSkillsUpdate}
+              />
             </div>
           ) : (
             <div className="flex items-center justify-center h-full">

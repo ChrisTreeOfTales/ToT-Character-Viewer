@@ -12,14 +12,11 @@
 
 ## 📝 Next Up (Immediate Priorities)
 
-**Option 3: Skills & Features System**
-- [ ] Add default D&D 5e skills to new characters (18 standard skills)
-- [ ] Display skills in character sheet with proficiency indicators
-- [ ] Create "Add Custom Skill" form for Valdas/homebrew content
-- [ ] Add proficiency toggle for each skill
-- [ ] Calculate skill bonuses (attribute modifier + proficiency if applicable)
+**Option 3B: Features & Traits System**
 - [ ] Add features/traits display section
-- [ ] Create "Add Custom Feature" form
+- [ ] Create "Add Custom Feature" form for class features
+- [ ] Create "Add Custom Trait" form for personality/racial traits
+- [ ] Display features with uses per rest tracking
 
 **Option 4: Inventory System**
 - [ ] Create "Add Inventory Item" form
@@ -86,6 +83,16 @@
 - [x] HP management - Damage/Heal buttons with prompt input
 - [x] Delete character functionality with confirmation dialog
 - [x] Delete button in character sheet header
+
+**Phase 5: Skills System** *(October 5, 2025)*
+- [x] Add default D&D 5e skills to database initialization (18 standard skills)
+- [x] Create SkillsDisplay component with proficiency/expertise indicators
+- [x] Add skills section to character sheet
+- [x] Implement proficiency toggle (cycles: none → proficient → expertise)
+- [x] Calculate skill bonuses automatically (ability modifier + proficiency)
+- [x] Create "Add Custom Skill" form for Valdas/homebrew content
+- [x] Visual indicators: empty circle (none), filled circle (proficient), double circle (expertise)
+- [x] Color-code custom skills in purple
 
 **Git & Documentation**
 - [x] Initial commit with all foundation work
