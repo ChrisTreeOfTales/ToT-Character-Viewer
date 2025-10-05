@@ -300,6 +300,14 @@ export function SkillsDisplay({ characterId, skills, abilityScores, proficiencyB
           const bonus = calculateSkillBonus(skill);
           const bonusStr = bonus >= 0 ? `+${bonus}` : `${bonus}`;
 
+          // Color the bonus to match proficiency level
+          let bonusColorClass = 'text-slate-400'; // Not proficient (gray)
+          if (skill.expertise) {
+            bonusColorClass = 'text-yellow-400'; // Expertise (yellow)
+          } else if (skill.proficient) {
+            bonusColorClass = 'text-blue-400'; // Proficient (blue)
+          }
+
           return (
             <button
               key={skill.id}
@@ -313,7 +321,7 @@ export function SkillsDisplay({ characterId, skills, abilityScores, proficiencyB
                   {skill.name}
                 </span>
               </div>
-              <span className="font-mono font-bold">{bonusStr}</span>
+              <span className={`font-mono font-bold ${bonusColorClass}`}>{bonusStr}</span>
             </button>
           );
         })}
