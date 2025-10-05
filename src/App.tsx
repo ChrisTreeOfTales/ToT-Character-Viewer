@@ -287,35 +287,37 @@ function App() {
                         value={hpChangeAmount}
                         onChange={(e) => setHpChangeAmount(e.target.value)}
                         placeholder="Amount"
-                        className="w-20 px-3 py-2 bg-slate-900 border border-slate-600 rounded text-sm text-center focus:outline-none focus:border-blue-500"
+                        className="w-24 px-3 bg-slate-900 border border-slate-600 rounded text-sm text-center focus:outline-none focus:border-blue-500 h-[72px]"
                         min="0"
                       />
-                      <button
-                        onClick={() => {
-                          const amount = parseInt(hpChangeAmount);
-                          if (amount && amount > 0) {
-                            const newHP = Math.max(0, selectedCharacter.hit_points_current - amount);
-                            updateHP(newHP);
-                            setHpChangeAmount(''); // Clear input after use
-                          }
-                        }}
-                        className="px-3 py-2 bg-red-600 hover:bg-red-700 rounded text-sm font-medium transition-colors"
-                      >
-                        Damage
-                      </button>
-                      <button
-                        onClick={() => {
-                          const amount = parseInt(hpChangeAmount);
-                          if (amount && amount > 0) {
-                            const newHP = Math.min(selectedCharacter.hit_points_max, selectedCharacter.hit_points_current + amount);
-                            updateHP(newHP);
-                            setHpChangeAmount(''); // Clear input after use
-                          }
-                        }}
-                        className="px-3 py-2 bg-green-600 hover:bg-green-700 rounded text-sm font-medium transition-colors"
-                      >
-                        Heal
-                      </button>
+                      <div className="flex flex-col gap-1">
+                        <button
+                          onClick={() => {
+                            const amount = parseInt(hpChangeAmount);
+                            if (amount && amount > 0) {
+                              const newHP = Math.max(0, selectedCharacter.hit_points_current - amount);
+                              updateHP(newHP);
+                              setHpChangeAmount(''); // Clear input after use
+                            }
+                          }}
+                          className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded text-sm font-medium transition-colors w-24"
+                        >
+                          Damage
+                        </button>
+                        <button
+                          onClick={() => {
+                            const amount = parseInt(hpChangeAmount);
+                            if (amount && amount > 0) {
+                              const newHP = Math.min(selectedCharacter.hit_points_max, selectedCharacter.hit_points_current + amount);
+                              updateHP(newHP);
+                              setHpChangeAmount(''); // Clear input after use
+                            }
+                          }}
+                          className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded text-sm font-medium transition-colors w-24"
+                        >
+                          Heal
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
