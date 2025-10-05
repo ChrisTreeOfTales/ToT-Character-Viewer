@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { initDatabase } from './lib/database';
 import { CharacterListSimple } from './components/CharacterListSimple';
 import { SkillsDisplay } from './components/SkillsDisplay';
-import { Trash2, Shield, Zap, Footprints, Award, Swords, Sparkles, Star } from 'lucide-react';
+import { Trash2, Shield, Zap, Footprints, Award, Swords, Sparkles, Star, Backpack } from 'lucide-react';
 
 interface FullCharacter {
   id: string;
@@ -37,7 +37,7 @@ interface Skill {
 }
 
 // Type for the active tab in the character sheet
-type CharacterTab = 'skills' | 'actions' | 'spells' | 'features';
+type CharacterTab = 'skills' | 'actions' | 'spells' | 'features' | 'inventory';
 
 function App() {
   const [isInitializing, setIsInitializing] = useState(true);
@@ -439,6 +439,17 @@ function App() {
                   <Star className="w-4 h-4" />
                   Features
                 </button>
+                <button
+                  onClick={() => setActiveTab('inventory')}
+                  className={`flex items-center gap-2 px-4 py-2 font-medium transition-colors ${
+                    activeTab === 'inventory'
+                      ? 'text-blue-400 border-b-2 border-blue-400'
+                      : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  <Backpack className="w-4 h-4" />
+                  Inventory
+                </button>
               </div>
 
               {/* Tab Content */}
@@ -480,6 +491,14 @@ function App() {
                   <Star className="w-12 h-12 mx-auto mb-3 text-slate-600" />
                   <p className="text-slate-400">Features coming soon...</p>
                   <p className="text-sm text-slate-500 mt-2">Class features, racial traits, and special abilities</p>
+                </div>
+              )}
+
+              {activeTab === 'inventory' && (
+                <div className="bg-slate-800 rounded-lg p-6 text-center">
+                  <Backpack className="w-12 h-12 mx-auto mb-3 text-slate-600" />
+                  <p className="text-slate-400">Inventory coming soon...</p>
+                  <p className="text-sm text-slate-500 mt-2">Equipment, items, currency, and encumbrance tracking</p>
                 </div>
               )}
             </div>
