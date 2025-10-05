@@ -6,11 +6,25 @@
 
 ## 🚧 In Progress
 
-*Currently working on:* None - awaiting next feature selection
+*Currently working on:* Spells System (feature/spells branch)
 
 ---
 
 ## 📝 Next Up (Immediate Priorities)
+
+**Phase 7: Spells System** *(Starting October 6, 2025)*
+- [ ] Add spell modifiers section under Spells tab
+- [ ] Add toggleable Rushed Incantation charges section
+- [ ] Create searchable spell cards list component
+- [ ] Add iconography to spell cards (spell type, category, VSM components, material costs)
+
+**Phase 8: Money/Gold System**
+- [ ] Add total gold display to main header (next to core stats)
+- [ ] Create Money/Gold tab in sub-menu navigation
+- [ ] Create transaction tracker with add/subtract functionality
+- [ ] Transaction history with description, amount, and timestamp
+- [ ] Support for multiple currency types (GP, SP, CP, etc.)
+- [ ] Auto-calculate total value in gold pieces
 
 **Option 3B: Features & Traits System**
 - [ ] Add features/traits display section
