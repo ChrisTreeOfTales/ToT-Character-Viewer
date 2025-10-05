@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { initDatabase } from './lib/database';
 import { CharacterListSimple } from './components/CharacterListSimple';
 import { SkillsDisplay } from './components/SkillsDisplay';
-import { Trash2, Shield, Zap, Footprints, Award } from 'lucide-react';
+import { Trash2, Shield, Zap, Footprints, Award, Swords, Sparkles, Star } from 'lucide-react';
 
 interface FullCharacter {
   id: string;
@@ -35,11 +35,15 @@ interface Skill {
   is_custom: number;
 }
 
+// Type for the active tab in the character sheet
+type CharacterTab = 'skills' | 'actions' | 'spells' | 'features';
+
 function App() {
   const [isInitializing, setIsInitializing] = useState(true);
   const [initError, setInitError] = useState<string | null>(null);
   const [selectedCharacter, setSelectedCharacter] = useState<FullCharacter | null>(null);
   const [characterSkills, setCharacterSkills] = useState<Skill[]>([]);
+  const [activeTab, setActiveTab] = useState<CharacterTab>('skills');
 
   const updateHP = async (newHP: number) => {
     if (!selectedCharacter) return;
@@ -303,21 +307,95 @@ function App() {
                 </div>
               </div>
 
-              {/* Skills Section */}
-              <SkillsDisplay
-                characterId={selectedCharacter.id}
-                skills={characterSkills}
-                abilityScores={{
-                  strength: selectedCharacter.strength,
-                  dexterity: selectedCharacter.dexterity,
-                  constitution: selectedCharacter.constitution,
-                  intelligence: selectedCharacter.intelligence,
-                  wisdom: selectedCharacter.wisdom,
-                  charisma: selectedCharacter.charisma,
-                }}
-                proficiencyBonus={selectedCharacter.proficiency_bonus}
-                onSkillsUpdate={handleSkillsUpdate}
-              />
+              {/* Tabbed Navigation */}
+              <div className="flex gap-2 mb-4 border-b border-slate-700">
+                <button
+                  onClick={() => setActiveTab('skills')}
+                  className={`flex items-center gap-2 px-4 py-2 font-medium transition-colors ${
+                    activeTab === 'skills'
+                      ? 'text-blue-400 border-b-2 border-blue-400'
+                      : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  <Award className="w-4 h-4" />
+                  Skills
+                </button>
+                <button
+                  onClick={() => setActiveTab('actions')}
+                  className={`flex items-center gap-2 px-4 py-2 font-medium transition-colors ${
+                    activeTab === 'actions'
+                      ? 'text-blue-400 border-b-2 border-blue-400'
+                      : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  <Swords className="w-4 h-4" />
+                  Actions
+                </button>
+                <button
+                  onClick={() => setActiveTab('spells')}
+                  className={`flex items-center gap-2 px-4 py-2 font-medium transition-colors ${
+                    activeTab === 'spells'
+                      ? 'text-blue-400 border-b-2 border-blue-400'
+                      : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  <Sparkles className="w-4 h-4" />
+                  Spells
+                </button>
+                <button
+                  onClick={() => setActiveTab('features')}
+                  className={`flex items-center gap-2 px-4 py-2 font-medium transition-colors ${
+                    activeTab === 'features'
+                      ? 'text-blue-400 border-b-2 border-blue-400'
+                      : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  <Star className="w-4 h-4" />
+                  Features
+                </button>
+              </div>
+
+              {/* Tab Content */}
+              {activeTab === 'skills' && (
+                <SkillsDisplay
+                  characterId={selectedCharacter.id}
+                  skills={characterSkills}
+                  abilityScores={{
+                    strength: selectedCharacter.strength,
+                    dexterity: selectedCharacter.dexterity,
+                    constitution: selectedCharacter.constitution,
+                    intelligence: selectedCharacter.intelligence,
+                    wisdom: selectedCharacter.wisdom,
+                    charisma: selectedCharacter.charisma,
+                  }}
+                  proficiencyBonus={selectedCharacter.proficiency_bonus}
+                  onSkillsUpdate={handleSkillsUpdate}
+                />
+              )}
+
+              {activeTab === 'actions' && (
+                <div className="bg-slate-800 rounded-lg p-6 text-center">
+                  <Swords className="w-12 h-12 mx-auto mb-3 text-slate-600" />
+                  <p className="text-slate-400">Actions coming soon...</p>
+                  <p className="text-sm text-slate-500 mt-2">Combat actions, attacks, and special abilities</p>
+                </div>
+              )}
+
+              {activeTab === 'spells' && (
+                <div className="bg-slate-800 rounded-lg p-6 text-center">
+                  <Sparkles className="w-12 h-12 mx-auto mb-3 text-slate-600" />
+                  <p className="text-slate-400">Spells coming soon...</p>
+                  <p className="text-sm text-slate-500 mt-2">Spell slots, prepared spells, and cantrips</p>
+                </div>
+              )}
+
+              {activeTab === 'features' && (
+                <div className="bg-slate-800 rounded-lg p-6 text-center">
+                  <Star className="w-12 h-12 mx-auto mb-3 text-slate-600" />
+                  <p className="text-slate-400">Features coming soon...</p>
+                  <p className="text-sm text-slate-500 mt-2">Class features, racial traits, and special abilities</p>
+                </div>
+              )}
             </div>
           ) : (
             <div className="flex items-center justify-center h-full">
