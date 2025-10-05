@@ -177,7 +177,7 @@ function App() {
           {selectedCharacter ? (
             <div className="p-6 max-w-7xl mx-auto">
               {/* Header */}
-              <div className="mb-6 pb-6 border-b border-slate-700">
+              <div className="mb-4 pb-4 border-b border-slate-700">
                 <div className="flex items-start justify-between">
                   <div>
                     <h1 className="text-4xl font-bold mb-2">{selectedCharacter.name}</h1>
@@ -196,6 +196,40 @@ function App() {
                   >
                     <Trash2 className="w-5 h-5" />
                   </button>
+                </div>
+              </div>
+
+              {/* Attributes - Compact at Top */}
+              <div className="grid grid-cols-6 gap-3 mb-4">
+                <div className="bg-slate-800 rounded-lg p-3 text-center">
+                  <div className="text-xs font-semibold text-slate-400 mb-1">STR</div>
+                  <div className="text-2xl font-bold mb-1">{getModifier(selectedCharacter.strength)}</div>
+                  <div className="text-xs text-slate-500">{selectedCharacter.strength}</div>
+                </div>
+                <div className="bg-slate-800 rounded-lg p-3 text-center">
+                  <div className="text-xs font-semibold text-slate-400 mb-1">DEX</div>
+                  <div className="text-2xl font-bold mb-1">{getModifier(selectedCharacter.dexterity)}</div>
+                  <div className="text-xs text-slate-500">{selectedCharacter.dexterity}</div>
+                </div>
+                <div className="bg-slate-800 rounded-lg p-3 text-center">
+                  <div className="text-xs font-semibold text-slate-400 mb-1">CON</div>
+                  <div className="text-2xl font-bold mb-1">{getModifier(selectedCharacter.constitution)}</div>
+                  <div className="text-xs text-slate-500">{selectedCharacter.constitution}</div>
+                </div>
+                <div className="bg-slate-800 rounded-lg p-3 text-center">
+                  <div className="text-xs font-semibold text-slate-400 mb-1">INT</div>
+                  <div className="text-2xl font-bold mb-1">{getModifier(selectedCharacter.intelligence)}</div>
+                  <div className="text-xs text-slate-500">{selectedCharacter.intelligence}</div>
+                </div>
+                <div className="bg-slate-800 rounded-lg p-3 text-center">
+                  <div className="text-xs font-semibold text-slate-400 mb-1">WIS</div>
+                  <div className="text-2xl font-bold mb-1">{getModifier(selectedCharacter.wisdom)}</div>
+                  <div className="text-xs text-slate-500">{selectedCharacter.wisdom}</div>
+                </div>
+                <div className="bg-slate-800 rounded-lg p-3 text-center">
+                  <div className="text-xs font-semibold text-slate-400 mb-1">CHA</div>
+                  <div className="text-2xl font-bold mb-1">{getModifier(selectedCharacter.charisma)}</div>
+                  <div className="text-xs text-slate-500">{selectedCharacter.charisma}</div>
                 </div>
               </div>
 
@@ -254,40 +288,6 @@ function App() {
                       Heal
                     </button>
                   </div>
-                </div>
-              </div>
-
-              {/* Attributes */}
-              <div className="grid grid-cols-6 gap-4 mb-6">
-                <div className="bg-slate-800 rounded-lg p-4 text-center">
-                  <div className="text-xs font-semibold text-slate-400 mb-2">STR</div>
-                  <div className="text-3xl font-bold mb-1">{getModifier(selectedCharacter.strength)}</div>
-                  <div className="text-sm text-slate-500">{selectedCharacter.strength}</div>
-                </div>
-                <div className="bg-slate-800 rounded-lg p-4 text-center">
-                  <div className="text-xs font-semibold text-slate-400 mb-2">DEX</div>
-                  <div className="text-3xl font-bold mb-1">{getModifier(selectedCharacter.dexterity)}</div>
-                  <div className="text-sm text-slate-500">{selectedCharacter.dexterity}</div>
-                </div>
-                <div className="bg-slate-800 rounded-lg p-4 text-center">
-                  <div className="text-xs font-semibold text-slate-400 mb-2">CON</div>
-                  <div className="text-3xl font-bold mb-1">{getModifier(selectedCharacter.constitution)}</div>
-                  <div className="text-sm text-slate-500">{selectedCharacter.constitution}</div>
-                </div>
-                <div className="bg-slate-800 rounded-lg p-4 text-center">
-                  <div className="text-xs font-semibold text-slate-400 mb-2">INT</div>
-                  <div className="text-3xl font-bold mb-1">{getModifier(selectedCharacter.intelligence)}</div>
-                  <div className="text-sm text-slate-500">{selectedCharacter.intelligence}</div>
-                </div>
-                <div className="bg-slate-800 rounded-lg p-4 text-center">
-                  <div className="text-xs font-semibold text-slate-400 mb-2">WIS</div>
-                  <div className="text-3xl font-bold mb-1">{getModifier(selectedCharacter.wisdom)}</div>
-                  <div className="text-sm text-slate-500">{selectedCharacter.wisdom}</div>
-                </div>
-                <div className="bg-slate-800 rounded-lg p-4 text-center">
-                  <div className="text-xs font-semibold text-slate-400 mb-2">CHA</div>
-                  <div className="text-3xl font-bold mb-1">{getModifier(selectedCharacter.charisma)}</div>
-                  <div className="text-sm text-slate-500">{selectedCharacter.charisma}</div>
                 </div>
               </div>
 
