@@ -287,7 +287,7 @@ function App() {
                         value={hpChangeAmount}
                         onChange={(e) => setHpChangeAmount(e.target.value)}
                         placeholder="Amount"
-                        className="w-20 px-2 py-1 bg-slate-900 border border-slate-600 rounded text-sm text-center focus:outline-none focus:border-blue-500"
+                        className="w-20 px-3 py-2 bg-slate-900 border border-slate-600 rounded text-sm text-center focus:outline-none focus:border-blue-500"
                         min="0"
                       />
                       <button
@@ -299,7 +299,7 @@ function App() {
                             setHpChangeAmount(''); // Clear input after use
                           }
                         }}
-                        className="px-3 py-1 bg-red-600 hover:bg-red-700 rounded text-sm font-medium transition-colors"
+                        className="px-3 py-2 bg-red-600 hover:bg-red-700 rounded text-sm font-medium transition-colors"
                       >
                         Damage
                       </button>
@@ -312,7 +312,7 @@ function App() {
                             setHpChangeAmount(''); // Clear input after use
                           }
                         }}
-                        className="px-3 py-1 bg-green-600 hover:bg-green-700 rounded text-sm font-medium transition-colors"
+                        className="px-3 py-2 bg-green-600 hover:bg-green-700 rounded text-sm font-medium transition-colors"
                       >
                         Heal
                       </button>
