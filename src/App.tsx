@@ -270,51 +270,59 @@ function App() {
                 </div>
               </div>
 
-              {/* Hit Points - Very Compact */}
-              <div className="bg-red-900/30 border border-red-700 rounded-lg p-3 mb-4">
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    <div className="text-xs text-slate-400">HP</div>
-                    <div className="text-xl font-bold">
-                      {selectedCharacter.hit_points_current} / {selectedCharacter.hit_points_max}
+              {/* HP and [Future Content] Row */}
+              <div className="grid grid-cols-2 gap-3 mb-4">
+                {/* Hit Points - Half Width */}
+                <div className="bg-slate-800 border border-slate-700 rounded-lg p-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <div className="text-sm text-slate-400">HP</div>
+                      <div className="text-2xl font-bold">
+                        {selectedCharacter.hit_points_current} / {selectedCharacter.hit_points_max}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="number"
+                        value={hpChangeAmount}
+                        onChange={(e) => setHpChangeAmount(e.target.value)}
+                        placeholder="Amount"
+                        className="w-20 px-2 py-1 bg-slate-900 border border-slate-600 rounded text-sm text-center focus:outline-none focus:border-blue-500"
+                        min="0"
+                      />
+                      <button
+                        onClick={() => {
+                          const amount = parseInt(hpChangeAmount);
+                          if (amount && amount > 0) {
+                            const newHP = Math.max(0, selectedCharacter.hit_points_current - amount);
+                            updateHP(newHP);
+                            setHpChangeAmount(''); // Clear input after use
+                          }
+                        }}
+                        className="px-3 py-1 bg-red-600 hover:bg-red-700 rounded text-sm font-medium transition-colors"
+                      >
+                        Damage
+                      </button>
+                      <button
+                        onClick={() => {
+                          const amount = parseInt(hpChangeAmount);
+                          if (amount && amount > 0) {
+                            const newHP = Math.min(selectedCharacter.hit_points_max, selectedCharacter.hit_points_current + amount);
+                            updateHP(newHP);
+                            setHpChangeAmount(''); // Clear input after use
+                          }
+                        }}
+                        className="px-3 py-1 bg-green-600 hover:bg-green-700 rounded text-sm font-medium transition-colors"
+                      >
+                        Heal
+                      </button>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="number"
-                      value={hpChangeAmount}
-                      onChange={(e) => setHpChangeAmount(e.target.value)}
-                      placeholder="Amount"
-                      className="w-20 px-2 py-1 bg-slate-800 border border-slate-600 rounded text-xs text-center focus:outline-none focus:border-blue-500"
-                      min="0"
-                    />
-                    <button
-                      onClick={() => {
-                        const amount = parseInt(hpChangeAmount);
-                        if (amount && amount > 0) {
-                          const newHP = Math.max(0, selectedCharacter.hit_points_current - amount);
-                          updateHP(newHP);
-                          setHpChangeAmount(''); // Clear input after use
-                        }
-                      }}
-                      className="px-2 py-1 bg-red-600 hover:bg-red-700 rounded text-xs font-medium transition-colors"
-                    >
-                      Damage
-                    </button>
-                    <button
-                      onClick={() => {
-                        const amount = parseInt(hpChangeAmount);
-                        if (amount && amount > 0) {
-                          const newHP = Math.min(selectedCharacter.hit_points_max, selectedCharacter.hit_points_current + amount);
-                          updateHP(newHP);
-                          setHpChangeAmount(''); // Clear input after use
-                        }
-                      }}
-                      className="px-2 py-1 bg-green-600 hover:bg-green-700 rounded text-xs font-medium transition-colors"
-                    >
-                      Heal
-                    </button>
-                  </div>
+                </div>
+
+                {/* Placeholder for future content (half width) */}
+                <div className="bg-slate-800 border border-slate-700 rounded-lg p-4">
+                  <div className="text-sm text-slate-400 text-center">Future content here</div>
                 </div>
               </div>
 
