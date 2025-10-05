@@ -224,37 +224,39 @@ function App() {
                 </div>
               </div>
 
-              {/* Attributes - Very Compact */}
-              <div className="grid grid-cols-6 gap-2 mb-3">
-                <div className="bg-slate-800 rounded-lg p-2 text-center">
-                  <div className="text-xs font-semibold text-slate-400">STR</div>
-                  <div className="text-xl font-bold">{getModifier(selectedCharacter.strength)}</div>
-                  <div className="text-xs text-slate-500">{selectedCharacter.strength}</div>
-                </div>
-                <div className="bg-slate-800 rounded-lg p-2 text-center">
-                  <div className="text-xs font-semibold text-slate-400">DEX</div>
-                  <div className="text-xl font-bold">{getModifier(selectedCharacter.dexterity)}</div>
-                  <div className="text-xs text-slate-500">{selectedCharacter.dexterity}</div>
-                </div>
-                <div className="bg-slate-800 rounded-lg p-2 text-center">
-                  <div className="text-xs font-semibold text-slate-400">CON</div>
-                  <div className="text-xl font-bold">{getModifier(selectedCharacter.constitution)}</div>
-                  <div className="text-xs text-slate-500">{selectedCharacter.constitution}</div>
-                </div>
-                <div className="bg-slate-800 rounded-lg p-2 text-center">
-                  <div className="text-xs font-semibold text-slate-400">INT</div>
-                  <div className="text-xl font-bold">{getModifier(selectedCharacter.intelligence)}</div>
-                  <div className="text-xs text-slate-500">{selectedCharacter.intelligence}</div>
-                </div>
-                <div className="bg-slate-800 rounded-lg p-2 text-center">
-                  <div className="text-xs font-semibold text-slate-400">WIS</div>
-                  <div className="text-xl font-bold">{getModifier(selectedCharacter.wisdom)}</div>
-                  <div className="text-xs text-slate-500">{selectedCharacter.wisdom}</div>
-                </div>
-                <div className="bg-slate-800 rounded-lg p-2 text-center">
-                  <div className="text-xs font-semibold text-slate-400">CHA</div>
-                  <div className="text-xl font-bold">{getModifier(selectedCharacter.charisma)}</div>
-                  <div className="text-xs text-slate-500">{selectedCharacter.charisma}</div>
+              {/* Attributes - Horizontal Compact */}
+              <div className="bg-slate-800 border border-slate-700 rounded-lg p-4 mb-3">
+                <div className="flex items-center justify-between">
+                  <div className="text-center flex-1">
+                    <div className="text-xs font-semibold text-slate-400 mb-1">STR</div>
+                    <div className="text-xl font-bold">{getModifier(selectedCharacter.strength)}</div>
+                    <div className="text-xs text-slate-500">{selectedCharacter.strength}</div>
+                  </div>
+                  <div className="text-center flex-1">
+                    <div className="text-xs font-semibold text-slate-400 mb-1">DEX</div>
+                    <div className="text-xl font-bold">{getModifier(selectedCharacter.dexterity)}</div>
+                    <div className="text-xs text-slate-500">{selectedCharacter.dexterity}</div>
+                  </div>
+                  <div className="text-center flex-1">
+                    <div className="text-xs font-semibold text-slate-400 mb-1">CON</div>
+                    <div className="text-xl font-bold">{getModifier(selectedCharacter.constitution)}</div>
+                    <div className="text-xs text-slate-500">{selectedCharacter.constitution}</div>
+                  </div>
+                  <div className="text-center flex-1">
+                    <div className="text-xs font-semibold text-slate-400 mb-1">INT</div>
+                    <div className="text-xl font-bold">{getModifier(selectedCharacter.intelligence)}</div>
+                    <div className="text-xs text-slate-500">{selectedCharacter.intelligence}</div>
+                  </div>
+                  <div className="text-center flex-1">
+                    <div className="text-xs font-semibold text-slate-400 mb-1">WIS</div>
+                    <div className="text-xl font-bold">{getModifier(selectedCharacter.wisdom)}</div>
+                    <div className="text-xs text-slate-500">{selectedCharacter.wisdom}</div>
+                  </div>
+                  <div className="text-center flex-1">
+                    <div className="text-xs font-semibold text-slate-400 mb-1">CHA</div>
+                    <div className="text-xl font-bold">{getModifier(selectedCharacter.charisma)}</div>
+                    <div className="text-xs text-slate-500">{selectedCharacter.charisma}</div>
+                  </div>
                 </div>
               </div>
 
