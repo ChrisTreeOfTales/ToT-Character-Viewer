@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Direct path to the project directory
+PROJECT_DIR="/Users/treeoftales/Documents/ToT Code/ToT Character Viewer/ToT-Character-Viewer"
+
+# Open Terminal and run the launcher script
+osascript <<EOF
+tell application "Terminal"
+    activate
+    do script "cd '$PROJECT_DIR' && ./start-app.sh"
+end tell
+EOF
