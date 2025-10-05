@@ -20,6 +20,7 @@ interface FullCharacter {
   proficiency_bonus: number;
   hit_points_current: number;
   hit_points_max: number;
+  hit_points_temporary: number;
   armor_class: number;
   speed: number;
 }
@@ -45,6 +46,7 @@ function App() {
   const [characterSkills, setCharacterSkills] = useState<Skill[]>([]);
   const [activeTab, setActiveTab] = useState<CharacterTab>('skills');
   const [hpChangeAmount, setHpChangeAmount] = useState<string>('');
+  const [tempHpChangeAmount, setTempHpChangeAmount] = useState<string>('');
 
   const updateHP = async (newHP: number) => {
     if (!selectedCharacter) return;
@@ -61,6 +63,24 @@ function App() {
     } catch (error) {
       console.error('Failed to update HP:', error);
       alert('Failed to update HP');
+    }
+  };
+
+  const updateTempHP = async (newTempHP: number) => {
+    if (!selectedCharacter) return;
+
+    try {
+      const db = await initDatabase();
+      await db.execute(
+        'UPDATE characters SET hit_points_temporary = ?, updated_at = ? WHERE id = ?',
+        [newTempHP, new Date().toISOString(), selectedCharacter.id]
+      );
+
+      // Update local state
+      setSelectedCharacter({ ...selectedCharacter, hit_points_temporary: newTempHP });
+    } catch (error) {
+      console.error('Failed to update Temp HP:', error);
+      alert('Failed to update Temp HP');
     }
   };
 
@@ -322,9 +342,54 @@ function App() {
                   </div>
                 </div>
 
-                {/* Placeholder for future content (half width) */}
+                {/* Temporary HP - Half Width */}
                 <div className="bg-slate-800 border border-slate-700 rounded-lg p-4">
-                  <div className="text-sm text-slate-400 text-center">Future content here</div>
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <div className="text-sm text-slate-400">Temp HP</div>
+                      <div className="text-2xl font-bold">
+                        {selectedCharacter.hit_points_temporary}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="number"
+                        value={tempHpChangeAmount}
+                        onChange={(e) => setTempHpChangeAmount(e.target.value)}
+                        placeholder="Amount"
+                        className="w-24 px-3 bg-slate-900 border border-slate-600 rounded text-sm text-center focus:outline-none focus:border-blue-500 h-[72px]"
+                        min="0"
+                      />
+                      <div className="flex flex-col gap-1">
+                        <button
+                          onClick={() => {
+                            const amount = parseInt(tempHpChangeAmount);
+                            if (amount && amount > 0) {
+                              const newTempHP = selectedCharacter.hit_points_temporary + amount;
+                              updateTempHP(newTempHP);
+                              setTempHpChangeAmount(''); // Clear input after use
+                            }
+                          }}
+                          className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-sm font-medium transition-colors w-24"
+                        >
+                          Add
+                        </button>
+                        <button
+                          onClick={() => {
+                            const amount = parseInt(tempHpChangeAmount);
+                            if (amount && amount > 0) {
+                              const newTempHP = Math.max(0, selectedCharacter.hit_points_temporary - amount);
+                              updateTempHP(newTempHP);
+                              setTempHpChangeAmount(''); // Clear input after use
+                            }
+                          }}
+                          className="px-4 py-2 bg-slate-600 hover:bg-slate-500 rounded text-sm font-medium transition-colors w-24"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
