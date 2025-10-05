@@ -285,6 +285,74 @@ Update `src-tauri/capabilities/default.json`:
 
 ---
 
+## 🎨 UI/UX Decisions (October 5, 2025)
+
+### Decision: Tabbed Navigation for Character Content
+
+**Chosen:** Tab system with Skills, Actions, Spells, Features
+
+**Rationale:**
+- Keeps interface clean and organized
+- Allows focus on one content area at a time
+- Reduces scrolling and visual clutter
+- Easy to expand with new tabs in future
+- Common pattern users understand
+
+**Implementation:**
+- Tabs below HP row for logical flow
+- Icons for quick recognition (Award, Swords, Sparkles, Star)
+- Active tab highlighted with blue color and underline
+- State managed with simple `activeTab` useState
+
+---
+
+### Decision: Compact Top Rows for More Content Space
+
+**Chosen:** Dramatically reduced padding, gaps, and font sizes in top 3 rows
+
+**Rationale:**
+- Ability scores are reference info, don't need large display
+- Core stats (AC, Initiative, etc.) are frequently viewed but don't need huge space
+- HP is important but compact horizontal layout works better
+- Frees up vertical space for skills and features (the main content)
+- Better information density without sacrificing readability
+
+**Changes Made:**
+- Attributes: `p-3→p-2`, `gap-3→gap-2`, `text-2xl→text-xl`
+- Core Stats: `p-4→p-2`, `gap-4→gap-2`, `text-3xl→text-xl`, labels shortened
+- HP: `p-4→p-3`, horizontal layout, smaller buttons
+
+---
+
+### Decision: Color-Coded Skill Bonuses
+
+**Chosen:** Match skill bonus colors to proficiency indicators
+
+**Rationale:**
+- Visual consistency - icons and numbers match
+- Easier to scan for proficient skills at a glance
+- No need to look at icon, the number color tells you proficiency level
+- Professional D&D apps use similar visual patterns
+
+**Color Scheme:**
+- Gray (slate-400): Not proficient
+- Blue (blue-400): Proficient
+- Yellow (yellow-400): Expertise
+
+---
+
+### Decision: Icons for Core Stats
+
+**Chosen:** Shield, Zap, Footprints, Award icons
+
+**Rationale:**
+- Makes stats instantly recognizable
+- Reduces cognitive load
+- Fits D&D theme (shield for AC, lightning for initiative, etc.)
+- Professional polish with minimal effort
+
+---
+
 ## 📋 Development Rules (Established October 5, 2025)
 
 ### Rule 1: Always Update TODO.md

@@ -93,11 +93,22 @@
 - [x] Create "Add Custom Skill" form for Valdas/homebrew content
 - [x] Visual indicators: empty circle (none), filled circle (proficient), double circle (expertise)
 - [x] Color-code custom skills in purple
+- [x] Color-code skill bonuses to match proficiency level (gray/blue/yellow)
+- [x] Add helper button to populate skills for existing characters
+
+**Phase 6: UI Improvements** *(October 5, 2025)*
+- [x] Reorganize layout - move attributes to top
+- [x] Make attributes row more compact (smaller padding, gaps, font sizes)
+- [x] Add icons to core stats (Shield, Zap, Footprints, Award)
+- [x] Dramatically compact top three rows for more content space
+- [x] Create tabbed navigation (Skills, Actions, Spells, Features)
+- [x] Implement tab switching with active state highlighting
 
 **Git & Documentation**
 - [x] Initial commit with all foundation work
 - [x] Create new branch for skills system feature
 - [x] Split documentation into 4 separate files (PLAN.md, TODO.md, SYSTEM.md, DECISIONS.md)
+- [x] Push feature/skills-system branch to GitHub
 
 ---
 

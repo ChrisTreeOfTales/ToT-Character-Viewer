@@ -29,6 +29,7 @@ ToT-Character-Viewer/
 ├── src/                          # Frontend React application
 │   ├── components/               # React UI components
 │   │   ├── CharacterListSimple.tsx    # Sidebar with character list & creation form
+│   │   ├── SkillsDisplay.tsx          # Skills list with proficiency/expertise toggles
 │   │   ├── AttributeBlock.tsx         # Ability score display blocks (not yet used)
 │   │   └── [other components]         # Created but not currently active
 │   ├── store/                    # State management
@@ -38,7 +39,7 @@ ToT-Character-Viewer/
 │   ├── lib/                      # Utility functions
 │   │   ├── database.ts                # SQLite initialization & schema
 │   │   └── validations.ts             # Zod schemas (created but not used)
-│   ├── App.tsx                   # Main application - character display & management
+│   ├── App.tsx                   # Main application - character display, HP management, tabbed navigation
 │   ├── main.tsx                  # React entry point
 │   └── index.css                 # Tailwind CSS imports
 ├── src-tauri/                    # Tauri/Rust backend
@@ -210,15 +211,24 @@ CREATE TABLE actions (
 
 **src/App.tsx**
 - Main application component
-- Manages character selection state
-- Displays selected character sheet
+- Manages character selection state and active tab state
+- Displays character sheet with tabbed navigation (Skills, Actions, Spells, Features)
 - Contains HP management (damage/heal) functions
 - Contains delete character function
 - **Key Functions:**
   - `initDatabase()` - Initializes SQLite database
-  - `loadCharacters()` - Fetches all characters from DB
+  - `loadCharacterSkills(characterId)` - Loads skills for selected character
+  - `handleSelectCharacter(character)` - Loads character and their skills
+  - `handleSkillsUpdate()` - Reloads skills after changes
   - `updateHP(newHP)` - Updates character's current HP
   - `deleteCharacter()` - Deletes character with confirmation
+- **Layout:**
+  - Header: Character name, level, class, race, background, delete button
+  - Row 1: Compact ability scores (STR, DEX, CON, INT, WIS, CHA)
+  - Row 2: Core stats with icons (AC, Initiative, Speed, Proficiency Bonus)
+  - Row 3: HP with Damage/Heal buttons
+  - Tabbed navigation for Skills/Actions/Spells/Features
+  - Tab content area (Skills implemented, others are placeholders)
 
 **src/components/CharacterListSimple.tsx**
 - Sidebar component showing all characters
@@ -230,6 +240,25 @@ CREATE TABLE actions (
   - Auto-calculates initiative from DEX modifier
   - Form validation (required fields)
   - Database insertion on form submit
+  - Calls `addDefaultSkills()` to add 18 D&D skills to new characters
+
+**src/components/SkillsDisplay.tsx**
+- Skills management component with proficiency/expertise system
+- **Key Features:**
+  - Displays all character skills in 2-column grid
+  - Click skill to cycle proficiency: none → proficient → expertise → none
+  - Visual indicators: ○ (none), ● blue (proficient), ◉ yellow (expertise)
+  - Auto-calculates skill bonuses (ability modifier + proficiency)
+  - Color-coded bonuses: gray (none), blue (proficient), yellow (expertise)
+  - Custom skills shown in purple text
+  - "Add D&D 5e Skills" button for characters without skills
+  - "Add Custom Skill" form for Valdas/homebrew content
+  - Legend explaining proficiency indicators
+- **Key Functions:**
+  - `toggleProficiency(skill)` - Cycles proficiency level
+  - `addCustomSkill()` - Adds homebrew skill to character
+  - `addAllDndSkills()` - Populates 18 standard D&D skills
+  - `calculateSkillBonus(skill)` - Computes total skill modifier
 
 ### Type Definitions
 
