@@ -295,19 +295,6 @@ function App() {
                           onClick={() => {
                             const amount = parseInt(hpChangeAmount);
                             if (amount && amount > 0) {
-                              const newHP = Math.max(0, selectedCharacter.hit_points_current - amount);
-                              updateHP(newHP);
-                              setHpChangeAmount(''); // Clear input after use
-                            }
-                          }}
-                          className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded text-sm font-medium transition-colors w-24"
-                        >
-                          Damage
-                        </button>
-                        <button
-                          onClick={() => {
-                            const amount = parseInt(hpChangeAmount);
-                            if (amount && amount > 0) {
                               const newHP = Math.min(selectedCharacter.hit_points_max, selectedCharacter.hit_points_current + amount);
                               updateHP(newHP);
                               setHpChangeAmount(''); // Clear input after use
@@ -316,6 +303,19 @@ function App() {
                           className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded text-sm font-medium transition-colors w-24"
                         >
                           Heal
+                        </button>
+                        <button
+                          onClick={() => {
+                            const amount = parseInt(hpChangeAmount);
+                            if (amount && amount > 0) {
+                              const newHP = Math.max(0, selectedCharacter.hit_points_current - amount);
+                              updateHP(newHP);
+                              setHpChangeAmount(''); // Clear input after use
+                            }
+                          }}
+                          className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded text-sm font-medium transition-colors w-24"
+                        >
+                          Damage
                         </button>
                       </div>
                     </div>
