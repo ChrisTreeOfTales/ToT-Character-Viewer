@@ -261,41 +261,38 @@ function App() {
                   </div>
                 </div>
 
-                {/* Placeholder for future content (half width) */}
-                <div className="bg-slate-800 border border-slate-700 rounded-lg p-4">
-                  <div className="text-sm text-slate-400 text-center">Future content here</div>
-                </div>
-              </div>
-
-              {/* Core Stats - Very Compact */}
-              <div className="grid grid-cols-4 gap-2 mb-3">
-                <div className="bg-slate-800 rounded-lg p-2 text-center">
-                  <div className="flex items-center justify-center gap-1 text-xs text-slate-400">
-                    <Shield className="w-3 h-3" />
-                    <span>AC</span>
+                {/* Core Stats - Half Width */}
+                <div className="bg-slate-800 border border-slate-700 rounded-lg p-4 flex items-center">
+                  <div className="grid grid-cols-4 gap-3 w-full">
+                    <div className="text-center">
+                      <div className="flex items-center justify-center gap-1 text-sm text-slate-400 mb-1">
+                        <Shield className="w-4 h-4" />
+                        <span>AC</span>
+                      </div>
+                      <div className="text-2xl font-bold">{selectedCharacter.armor_class}</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="flex items-center justify-center gap-1 text-sm text-slate-400 mb-1">
+                        <Zap className="w-4 h-4" />
+                        <span>Init</span>
+                      </div>
+                      <div className="text-2xl font-bold">{getModifier(selectedCharacter.dexterity)}</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="flex items-center justify-center gap-1 text-sm text-slate-400 mb-1">
+                        <Footprints className="w-4 h-4" />
+                        <span>Speed</span>
+                      </div>
+                      <div className="text-2xl font-bold">{selectedCharacter.speed}</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="flex items-center justify-center gap-1 text-sm text-slate-400 mb-1">
+                        <Award className="w-4 h-4" />
+                        <span>Prof</span>
+                      </div>
+                      <div className="text-2xl font-bold">+{selectedCharacter.proficiency_bonus}</div>
+                    </div>
                   </div>
-                  <div className="text-xl font-bold">{selectedCharacter.armor_class}</div>
-                </div>
-                <div className="bg-slate-800 rounded-lg p-2 text-center">
-                  <div className="flex items-center justify-center gap-1 text-xs text-slate-400">
-                    <Zap className="w-3 h-3" />
-                    <span>Init</span>
-                  </div>
-                  <div className="text-xl font-bold">{getModifier(selectedCharacter.dexterity)}</div>
-                </div>
-                <div className="bg-slate-800 rounded-lg p-2 text-center">
-                  <div className="flex items-center justify-center gap-1 text-xs text-slate-400">
-                    <Footprints className="w-3 h-3" />
-                    <span>Speed</span>
-                  </div>
-                  <div className="text-xl font-bold">{selectedCharacter.speed}</div>
-                </div>
-                <div className="bg-slate-800 rounded-lg p-2 text-center">
-                  <div className="flex items-center justify-center gap-1 text-xs text-slate-400">
-                    <Award className="w-3 h-3" />
-                    <span>Prof</span>
-                  </div>
-                  <div className="text-xl font-bold">+{selectedCharacter.proficiency_bonus}</div>
                 </div>
               </div>
 
