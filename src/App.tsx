@@ -44,6 +44,7 @@ function App() {
   const [selectedCharacter, setSelectedCharacter] = useState<FullCharacter | null>(null);
   const [characterSkills, setCharacterSkills] = useState<Skill[]>([]);
   const [activeTab, setActiveTab] = useState<CharacterTab>('skills');
+  const [hpChangeAmount, setHpChangeAmount] = useState<string>('');
 
   const updateHP = async (newHP: number) => {
     if (!selectedCharacter) return;
@@ -271,20 +272,29 @@ function App() {
 
               {/* Hit Points - Very Compact */}
               <div className="bg-red-900/30 border border-red-700 rounded-lg p-3 mb-4">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
                     <div className="text-xs text-slate-400">HP</div>
                     <div className="text-xl font-bold">
                       {selectedCharacter.hit_points_current} / {selectedCharacter.hit_points_max}
                     </div>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="number"
+                      value={hpChangeAmount}
+                      onChange={(e) => setHpChangeAmount(e.target.value)}
+                      placeholder="Amount"
+                      className="w-20 px-2 py-1 bg-slate-800 border border-slate-600 rounded text-xs text-center focus:outline-none focus:border-blue-500"
+                      min="0"
+                    />
                     <button
                       onClick={() => {
-                        const damage = prompt('Damage amount:');
-                        if (damage) {
-                          const newHP = Math.max(0, selectedCharacter.hit_points_current - parseInt(damage));
+                        const amount = parseInt(hpChangeAmount);
+                        if (amount && amount > 0) {
+                          const newHP = Math.max(0, selectedCharacter.hit_points_current - amount);
                           updateHP(newHP);
+                          setHpChangeAmount(''); // Clear input after use
                         }
                       }}
                       className="px-2 py-1 bg-red-600 hover:bg-red-700 rounded text-xs font-medium transition-colors"
@@ -293,10 +303,11 @@ function App() {
                     </button>
                     <button
                       onClick={() => {
-                        const heal = prompt('Heal amount:');
-                        if (heal) {
-                          const newHP = Math.min(selectedCharacter.hit_points_max, selectedCharacter.hit_points_current + parseInt(heal));
+                        const amount = parseInt(hpChangeAmount);
+                        if (amount && amount > 0) {
+                          const newHP = Math.min(selectedCharacter.hit_points_max, selectedCharacter.hit_points_current + amount);
                           updateHP(newHP);
+                          setHpChangeAmount(''); // Clear input after use
                         }
                       }}
                       className="px-2 py-1 bg-green-600 hover:bg-green-700 rounded text-xs font-medium transition-colors"
