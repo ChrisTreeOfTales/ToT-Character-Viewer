@@ -199,78 +199,78 @@ function App() {
                 </div>
               </div>
 
-              {/* Attributes - Compact at Top */}
-              <div className="grid grid-cols-6 gap-3 mb-4">
-                <div className="bg-slate-800 rounded-lg p-3 text-center">
-                  <div className="text-xs font-semibold text-slate-400 mb-1">STR</div>
-                  <div className="text-2xl font-bold mb-1">{getModifier(selectedCharacter.strength)}</div>
+              {/* Attributes - Very Compact */}
+              <div className="grid grid-cols-6 gap-2 mb-3">
+                <div className="bg-slate-800 rounded-lg p-2 text-center">
+                  <div className="text-xs font-semibold text-slate-400">STR</div>
+                  <div className="text-xl font-bold">{getModifier(selectedCharacter.strength)}</div>
                   <div className="text-xs text-slate-500">{selectedCharacter.strength}</div>
                 </div>
-                <div className="bg-slate-800 rounded-lg p-3 text-center">
-                  <div className="text-xs font-semibold text-slate-400 mb-1">DEX</div>
-                  <div className="text-2xl font-bold mb-1">{getModifier(selectedCharacter.dexterity)}</div>
+                <div className="bg-slate-800 rounded-lg p-2 text-center">
+                  <div className="text-xs font-semibold text-slate-400">DEX</div>
+                  <div className="text-xl font-bold">{getModifier(selectedCharacter.dexterity)}</div>
                   <div className="text-xs text-slate-500">{selectedCharacter.dexterity}</div>
                 </div>
-                <div className="bg-slate-800 rounded-lg p-3 text-center">
-                  <div className="text-xs font-semibold text-slate-400 mb-1">CON</div>
-                  <div className="text-2xl font-bold mb-1">{getModifier(selectedCharacter.constitution)}</div>
+                <div className="bg-slate-800 rounded-lg p-2 text-center">
+                  <div className="text-xs font-semibold text-slate-400">CON</div>
+                  <div className="text-xl font-bold">{getModifier(selectedCharacter.constitution)}</div>
                   <div className="text-xs text-slate-500">{selectedCharacter.constitution}</div>
                 </div>
-                <div className="bg-slate-800 rounded-lg p-3 text-center">
-                  <div className="text-xs font-semibold text-slate-400 mb-1">INT</div>
-                  <div className="text-2xl font-bold mb-1">{getModifier(selectedCharacter.intelligence)}</div>
+                <div className="bg-slate-800 rounded-lg p-2 text-center">
+                  <div className="text-xs font-semibold text-slate-400">INT</div>
+                  <div className="text-xl font-bold">{getModifier(selectedCharacter.intelligence)}</div>
                   <div className="text-xs text-slate-500">{selectedCharacter.intelligence}</div>
                 </div>
-                <div className="bg-slate-800 rounded-lg p-3 text-center">
-                  <div className="text-xs font-semibold text-slate-400 mb-1">WIS</div>
-                  <div className="text-2xl font-bold mb-1">{getModifier(selectedCharacter.wisdom)}</div>
+                <div className="bg-slate-800 rounded-lg p-2 text-center">
+                  <div className="text-xs font-semibold text-slate-400">WIS</div>
+                  <div className="text-xl font-bold">{getModifier(selectedCharacter.wisdom)}</div>
                   <div className="text-xs text-slate-500">{selectedCharacter.wisdom}</div>
                 </div>
-                <div className="bg-slate-800 rounded-lg p-3 text-center">
-                  <div className="text-xs font-semibold text-slate-400 mb-1">CHA</div>
-                  <div className="text-2xl font-bold mb-1">{getModifier(selectedCharacter.charisma)}</div>
+                <div className="bg-slate-800 rounded-lg p-2 text-center">
+                  <div className="text-xs font-semibold text-slate-400">CHA</div>
+                  <div className="text-xl font-bold">{getModifier(selectedCharacter.charisma)}</div>
                   <div className="text-xs text-slate-500">{selectedCharacter.charisma}</div>
                 </div>
               </div>
 
-              {/* Core Stats */}
-              <div className="grid grid-cols-4 gap-4 mb-6">
-                <div className="bg-slate-800 rounded-lg p-4 text-center">
-                  <div className="flex items-center justify-center gap-2 text-sm text-slate-400 mb-1">
-                    <Shield className="w-4 h-4" />
-                    <span>Armor Class</span>
+              {/* Core Stats - Very Compact */}
+              <div className="grid grid-cols-4 gap-2 mb-3">
+                <div className="bg-slate-800 rounded-lg p-2 text-center">
+                  <div className="flex items-center justify-center gap-1 text-xs text-slate-400">
+                    <Shield className="w-3 h-3" />
+                    <span>AC</span>
                   </div>
-                  <div className="text-3xl font-bold">{selectedCharacter.armor_class}</div>
+                  <div className="text-xl font-bold">{selectedCharacter.armor_class}</div>
                 </div>
-                <div className="bg-slate-800 rounded-lg p-4 text-center">
-                  <div className="flex items-center justify-center gap-2 text-sm text-slate-400 mb-1">
-                    <Zap className="w-4 h-4" />
-                    <span>Initiative</span>
+                <div className="bg-slate-800 rounded-lg p-2 text-center">
+                  <div className="flex items-center justify-center gap-1 text-xs text-slate-400">
+                    <Zap className="w-3 h-3" />
+                    <span>Init</span>
                   </div>
-                  <div className="text-3xl font-bold">{getModifier(selectedCharacter.dexterity)}</div>
+                  <div className="text-xl font-bold">{getModifier(selectedCharacter.dexterity)}</div>
                 </div>
-                <div className="bg-slate-800 rounded-lg p-4 text-center">
-                  <div className="flex items-center justify-center gap-2 text-sm text-slate-400 mb-1">
-                    <Footprints className="w-4 h-4" />
+                <div className="bg-slate-800 rounded-lg p-2 text-center">
+                  <div className="flex items-center justify-center gap-1 text-xs text-slate-400">
+                    <Footprints className="w-3 h-3" />
                     <span>Speed</span>
                   </div>
-                  <div className="text-3xl font-bold">{selectedCharacter.speed} ft</div>
+                  <div className="text-xl font-bold">{selectedCharacter.speed}</div>
                 </div>
-                <div className="bg-slate-800 rounded-lg p-4 text-center">
-                  <div className="flex items-center justify-center gap-2 text-sm text-slate-400 mb-1">
-                    <Award className="w-4 h-4" />
-                    <span>Prof. Bonus</span>
+                <div className="bg-slate-800 rounded-lg p-2 text-center">
+                  <div className="flex items-center justify-center gap-1 text-xs text-slate-400">
+                    <Award className="w-3 h-3" />
+                    <span>Prof</span>
                   </div>
-                  <div className="text-3xl font-bold">+{selectedCharacter.proficiency_bonus}</div>
+                  <div className="text-xl font-bold">+{selectedCharacter.proficiency_bonus}</div>
                 </div>
               </div>
 
-              {/* Hit Points */}
-              <div className="bg-red-900/30 border border-red-700 rounded-lg p-4 mb-6">
+              {/* Hit Points - Very Compact */}
+              <div className="bg-red-900/30 border border-red-700 rounded-lg p-3 mb-4">
                 <div className="flex items-center justify-between">
-                  <div>
-                    <div className="text-sm text-slate-400 mb-1">Hit Points</div>
-                    <div className="text-2xl font-bold">
+                  <div className="flex items-center gap-3">
+                    <div className="text-xs text-slate-400">HP</div>
+                    <div className="text-xl font-bold">
                       {selectedCharacter.hit_points_current} / {selectedCharacter.hit_points_max}
                     </div>
                   </div>
@@ -283,7 +283,7 @@ function App() {
                           updateHP(newHP);
                         }
                       }}
-                      className="px-3 py-1 bg-red-600 hover:bg-red-700 rounded text-sm font-medium transition-colors"
+                      className="px-2 py-1 bg-red-600 hover:bg-red-700 rounded text-xs font-medium transition-colors"
                     >
                       Damage
                     </button>
@@ -295,7 +295,7 @@ function App() {
                           updateHP(newHP);
                         }
                       }}
-                      className="px-3 py-1 bg-green-600 hover:bg-green-700 rounded text-sm font-medium transition-colors"
+                      className="px-2 py-1 bg-green-600 hover:bg-green-700 rounded text-xs font-medium transition-colors"
                     >
                       Heal
                     </button>
